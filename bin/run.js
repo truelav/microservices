@@ -12,8 +12,11 @@ const slackLogLevel = 'debug';
 const rtm = slackClient.init(slackToken, slackLogLevel);
 rtm.start();
 
-server.listen(3000);
+slackClient.addAuthenticatedHandler(rtm, () => { 
+    server.listen(3000);
+})
 
 server.on('listening', function() {
     console.log(`Multiservice is listening on ${server.address().port} in ${service.get('env')} mode.`);
 });
+
